@@ -119,11 +119,11 @@ public class Estacionamento {
     }
 
     public String[] listarGeral() {
-        String[] result = new String[this.placas.length - 1]; // nova array de string e iniciada 
+        String[] result = new String[this.placas.length - 1]; // nova array de string e iniciada
 
         for (int i = 1; i < this.placas.length; i++) {
             result[i - 1] = "Carro: " + this.placas[i] + "; Vaga: " + i; //cada iteracao o result e preench com infos
-        }//como o loop comeca com i=1 mas o array comeca com indice 0 preciso subtrair -1de i pra correponder ao indices de result
+        }//array result  indexado a partir de 0 enquanto a iteracao do loop começa a partir de 1
 
         return result; //dp pecorre todass vg retorna result
     }
@@ -145,9 +145,9 @@ public class Estacionamento {
         try {
             FileWriter file = new FileWriter("placas.csv");
             for (int i = 1; i < this.placas.length; i++) {
-                String placa = this.placas[i];
-                String vaga = String.valueOf(i);
-                String linha = String.format(placa + ";" + vaga + "\n");
+                String placa = this.placas[i]; // obtem o valor da placa na posição i do array placas do objeto atual
+                String vaga = String.valueOf(i); //converte valor de int i em  String
+                String linha = String.format(vaga + ";" + placa + "\n");
                 file.write(linha);
             }
             System.out.println("Dados salvos com sucesso!");
@@ -169,12 +169,12 @@ public class Estacionamento {
             String linha;
 
             do {
-                linha = arquivo.nextLine();
-                divisao = linha.split(";");
-                int vaga = Integer.parseInt(divisao[0]);
-                this.placas[vaga - 1] = divisao[1];
+                linha = arquivo.nextLine(); //linha e lida
+                divisao = linha.split(";");//dividida em partes separadas pelo caractere ";"
+                int vaga = Integer.parseInt(divisao[0]); //converte a primeira parte da divisão, que representa a vaga, em um número inteiro usando o método "parseInt()" da classe "Integer" e armazena o resultado na variável "vaga".
+                this.placas[vaga] = divisao[1]; //atribui a segunda parte da divisao, que representa a placa, ao array "placas" na posicaoo correspondente à vaga.
 
-            } while (arquivo.hasNextLine());
+            } while (arquivo.hasNextLine()); //executa pelo menos uma vez e continua enquanto houver uma proxima linha no arquivo
 
             arquivo.close();
 
